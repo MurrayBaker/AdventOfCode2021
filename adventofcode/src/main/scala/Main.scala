@@ -1,49 +1,17 @@
-import io.Source
-import java.io.PrintWriter
 import util.control.Exception.allCatch
+import io.StdIn.readLine
 
-def refractoryPeriod = 6
-def ageOfConsent = 8
-def numberOfIterations = 80
-def scratchFilePath = "C:\\\\temp\\Fish.txt"
-
-@main def main: Unit = {
-  var initialState = Source.fromResource("input.txt").getLines().next();
-  var nextIteration = initialState;
-  var i = 0;
-  for (i <- 1 to numberOfIterations) {
-    println(i)
-    nextIteration = timeMarchesInevitablyOnward(nextIteration);
-
-    new PrintWriter(scratchFilePath) { 
-      write(f"$nextIteration\r\n");
-      close;
-    }
-  }
-
-  val lastLine = Source.fromFile(scratchFilePath).getLines().foldLeft(Option.empty[String]) {
-    case (_, line) => Some(line);
-  };
-
-  lastLine match {
-    case Some(s) => println(s); println(s.split(",").count(s => true))
-    case None => println("Done goofd");
-  }
-}
-
-def timeMarchesInevitablyOnward(fishList:String) : String = 
-  fishList.split(",")
-  .map(n => {
-    intParse(n) match{
-      case Some(fishHorniness) => {
-        if (fishHorniness == 0) 
-          f"$refractoryPeriod,$ageOfConsent" 
-          else (fishHorniness - 1).toString()
+@main def main: Unit = 
+  while (true) {
+    println("What day is it?")
+    val day = allCatch.opt(readLine().toInt);
+    day match {
+      case Some(d) => d match {
+        case 6 => day6
+        case _ => println(unknownDayMessage)
       }
-      case None => ""
+      case None => println(unknownDayMessage)
     }
-  })
-  .reduceLeft((a:String, b:String) => f"$a,$b");
-
-def intParse(s: String): Option[Int] = 
-  allCatch.opt(s.toInt);
+  }
+  
+def unknownDayMessage = "That wasn't an integer day that we recognise."
