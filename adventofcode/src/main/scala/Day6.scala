@@ -7,15 +7,15 @@ def unknownPartMessage = "I don't know what you mean"
 
 def day6: Unit = {
   println("Part 1 or 2?")
-    val part = allCatch.opt(readLine().toInt);
-    part match {
-      case Some(p) => p match {
-        case 1 => day6Part1
-        case 2 => day6Part2
-        case _ => println(unknownPartMessage)
-      }
-      case None => println(unknownPartMessage)
+  val part = allCatch.opt(readLine().toInt);
+  part match {
+    case Some(p) => p match {
+      case 1 => day6Part1
+      case 2 => day6Part2
+      case _ => println(unknownPartMessage)
     }
+    case None => println(unknownPartMessage)
+  }
 }
 
 val refractoryPeriod = 6
