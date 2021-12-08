@@ -9,6 +9,7 @@ import io.StdIn.readLine
       case Some(d) => d match {
         case 6 => day6
         case 7 => day7
+        case 8 => day8
         case _ => println(unknownDayMessage)
       }
       case None => println(unknownDayMessage)
