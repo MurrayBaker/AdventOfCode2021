@@ -3,8 +3,6 @@ import java.io.PrintWriter
 import util.control.Exception.allCatch
 import io.StdIn.readLine
 
-def unknownPartMessage = "I don't know what you mean"
-
 def day6: Unit = {
   println("Part 1 or 2?")
   val part = allCatch.opt(readLine().toInt);
