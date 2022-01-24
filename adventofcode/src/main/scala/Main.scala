@@ -10,6 +10,7 @@ import io.StdIn.readLine
       case 7 => day7
       case 8 => day8
       case 9 => day9
+      case 10 => day10
       case _ => println(unknownDayMessage)
     }
     case None => println(unknownDayMessage)
