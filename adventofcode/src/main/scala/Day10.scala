@@ -49,4 +49,33 @@ def maybeGetInvalidSymbol(line : String) : Option[Char] =
     return None
 
 def day10Part2 : Unit = 
-    println("todo")
+    println(oddMedian(Source.fromResource("day10input.txt")
+        .getLines()
+        .filter(line => maybeGetInvalidSymbol(line) == None)
+        .map(line => getClosingCharacters(line)
+            .map(character => character match {
+                case ')' => 1
+                case ']' => 2
+                case '}' => 3
+                case '>' => 4
+            })
+            .foldLeft(0 : BigInt) { (a,b) => a * 5 + b })
+        .toSeq))
+
+
+def getClosingCharacters(input : String) : String = 
+    val stack = new Stack[Char]()
+    input.foreach(symbol => {
+        symbol match {
+            case '(' => stack.push(')')
+            case '[' => stack.push(']')
+            case '{' => stack.push('}')
+            case '<' => stack.push('>')
+            case ')' | ']' | '}' | '>' => stack.pop()
+        }
+    })
+
+    return stack.popAll.reverse.mkString
+
+def oddMedian(input : Seq[BigInt]) : BigInt = 
+    input.sortWith(_<_).drop(input.length / 2).head
